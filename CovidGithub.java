@@ -42,11 +42,16 @@ public class CovidGithub{
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
 		
 		for(String source : sources.keySet()){
+			File file = new File(sources.get(source));
+			out.putNextEntry(new ZipEntry(file.getName()));
+			out.write(Files.readAllBytes(file.toPath()));
+			/**
 			ZipEntry e = new ZipEntry(join(outputDirectory, sources.get(source)));
 			out.putNextEntry(e);
 			
 			File entryFile = new File(join(outputDirectory, sources.get(source)));
 			out.write(Files.readAllBytes(entryFile.toPath()));
+			**/
 		}
 		out.close();
 	}
